@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
 
     console.log('[' + socket.id + '] connection accepted')
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
         for (var channel in socket.channels) {
             part(channel)
         }
@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
         delete sockets[socket.id]
     })
 
-    socket.on('join', function (config) {
+    socket.on('join', (config) => {
         console.log('[' + socket.id + '] join ', config)
         var channel = config.channel
 
@@ -61,7 +61,14 @@ io.on('connection', (socket) => {
         socket.channels[channel] = channel
     })
 
-    function part (channel) {
+    socket.on('incomingMessage', (message) => {
+        currentDatetime = new Date().toDateString();
+        message.currentDatetime = currentDatetime
+
+        socket.emit('incomingMessage', message)
+    })
+
+    socket.on('part', (channel) => {
         console.log('[' + socket.id + '] part ')
 
         if (!(channel in socket.channels)) {
@@ -76,11 +83,9 @@ io.on('connection', (socket) => {
             channels[channel][id].emit('removePeer', { peerId: socket.id })
             socket.emit('removePeer', { peerId: id })
         }
-    }
+    })
 
-    socket.on('part', part)
-
-    socket.on('relayICECandidate', function (config) {
+    socket.on('relayICECandidate', (config) => {
         var peerId = config.peerId
         var iceCandidate = config.iceCandidate
         console.log('[' + socket.id + '] relaying ICE candidate to [' + peerId + '] ', iceCandidate)
@@ -90,7 +95,7 @@ io.on('connection', (socket) => {
         }
     })
 
-    socket.on('relaySessionDescription', function (config) {
+    socket.on('relaySessionDescription', (config) => {
         var peerId = config.peerId
         var sessionDescription = config.sessionDescription
         console.log('[' + socket.id + '] relaying session description to [' + peerId + '] ', sessionDescription)

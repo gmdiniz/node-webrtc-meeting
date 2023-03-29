@@ -22,7 +22,8 @@
                     />
                     <div>
                         <div v-for="(message, index) in messages" :key="index">
-                            {{ message.message }}
+                            {{ message.message }} •
+                            {{ message.currentDatetime }}
                         </div>
                     </div>
                 </v-card>
@@ -98,10 +99,9 @@ export default {
             this.$router.push({ name: 'meetings' })
         },
         sendMessage () {
-            this.socketServer.emit('liveChat', {
+            this.socketServer.emit('incomingMessage', {
                 message: this.message,
-                userLogin: this.loggedUser,
-                type: 'liveChat'
+                userLogin: this.loggedUser || ''
             })
 
             this.message = ''
@@ -135,6 +135,10 @@ export default {
             this.socketServer.on('sessionDescription', this.sessionDescriptionEvent)
             this.socketServer.on('iceCandidate', this.iceCandidateEvent)
             this.socketServer.on('removePeer', this.removePeerEvent)
+            this.socketServer.on('incomingMessage', this.handleChatMessage)
+        },
+        handleChatMessage (message) {
+            this.messages.push(message)
         },
         shouldShowRemoteArea () {
             return !!Object.keys(this.peerMediaElements).length
