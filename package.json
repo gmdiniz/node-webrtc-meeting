@@ -5,7 +5,7 @@
   "description": "## Project setup ``` npm install ```",
   "author": "Gabriel Diniz",
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint",
     "client": "vue-cli-service serve",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run server\"",
