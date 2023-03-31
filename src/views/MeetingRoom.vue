@@ -21,9 +21,13 @@
                         variant="solo"
                     />
                     <div>
-                        <div v-for="(message, index) in messages" :key="index">
-                            {{ message.message }} •
-                            {{ message.currentDatetime }}
+                        <div class="chat-message" v-for="(message, index) in messages" :key="index">
+                            <span class="message-body">
+                                {{ message.message }}
+                            </span>
+                            <span class="message-time">
+                                {{ message.currentDatetime }}
+                            </span>
                         </div>
                     </div>
                 </v-card>
@@ -283,6 +287,41 @@ export default {
     .chat-text-area {
         margin: 20px;
         padding: 20px 20px 10px 20px;
+        max-width: 400px;
+    }
+
+    .chat-message {
+        border-radius: 5px;
+        display: grid;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .chat-message:nth-child(even) {
+        background-color: #f1f1f1;
+    }
+
+    .chat-message:nth-child(odd) {
+        background-color: #e9e9e9;
+    }
+
+    .message-body {
+        margin-bottom:18px;
+        font-size: 18px;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-weight: lighter;
+        line-height: 22px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: auto;
+    }
+
+    .message-time {
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 700;
+        align-self: end;
     }
 
     .remote-video-area {
