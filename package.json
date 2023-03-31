@@ -2,7 +2,10 @@
   "name": "meetings",
   "version": "0.1.0",
   "private": true,
-  "description": "## Project setup ``` npm install ```",
+  "engines": {
+    "node": "16.x"
+  },
+  "description": "",
   "author": "Gabriel Diniz",
   "scripts": {
     "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
