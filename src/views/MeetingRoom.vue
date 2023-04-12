@@ -22,6 +22,9 @@
                     />
                     <div>
                         <div class="chat-message" v-for="(message, index) in messages" :key="index">
+                            <span class="message-sender">
+                                {{ message.userLogin }}
+                            </span>
                             <span class="message-body">
                                 {{ message.message }}
                             </span>
@@ -64,8 +67,11 @@
 
 <script>
 import Vue from 'vue'
+
 import { mapGetters, mapState } from 'vuex'
-const { io } = require('socket.io-client')
+import { faker } from '@faker-js/faker'
+import { io } from 'socket.io-client'
+
 const ICE_SERVERS = [
     { urls: 'stun:stun.l.google.com:19302' }
 ]
@@ -83,7 +89,9 @@ export default {
             channelId: '',
             peerMediaElements: {},
             socketServer: null,
-            roomId: this.$route.params.roomId
+            roomId: this.$route.params.roomId,
+            randomRoomId: null,
+            nickname: null
         }
     },
     computed: {
@@ -105,7 +113,8 @@ export default {
         sendMessage () {
             this.socketServer.emit('incomingMessage', {
                 message: this.message,
-                userLogin: this.loggedUser || ''
+                userLogin: this.loggedUser || this.nickname,
+                channel: this.randomRoomId
             })
 
             this.message = ''
@@ -130,6 +139,8 @@ export default {
         },
         initWebsocket () {
             const randomRoomId = this.$route.params.roomId.replaceAll('-', '')
+            this.randomRoomId = randomRoomId
+
             this.socketServer = io('http://localhost:3000')
 
             this.socketServer.on('connect', () => {
@@ -254,7 +265,8 @@ export default {
         this.startCall()
     },
     mounted () {
-
+        const randomNickname = faker.lorem.slug(2)
+        this.nickname = randomNickname
     }
 }
 </script>
@@ -322,6 +334,11 @@ export default {
         font-size: 12px;
         font-weight: 700;
         align-self: end;
+    }
+
+    .message-sender {
+        font-size: 12px;
+        font-weight: 400;
     }
 
     .remote-video-area {
