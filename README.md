@@ -4,29 +4,31 @@ Sistema de videoconferência em tempo real com ferramentas de interação colabo
 
 ### 📋 Pré-requisitos
 
-```
 O projeto conta com a versão node maior ou igual a 16.14.0 e a versão npm maior ou igual a 8.3.1, como especificado no package.json
-```
 
 ### 🔧 Instalação
 
-A ferramenta conta com dois comandos basicos para rodar localmente
-
-```
-npm run client - Para subir o fronend em VUE
-```
-
-e
-
-```
-npm run server - Para subir o servidor em node.js no modo debug
-```
-
-Antes disso basta clonar o projeto localmente e rodar
+Antes de tudo basta clonar o projeto localmente e rodar
 
 ```
 npm install
 ```
+
+A ferramenta conta com dois comandos basicos para rodar localmente
+
+```
+npm run client
+```
+
+Para subir o fronend em VUE
+
+e
+
+```
+npm run server -
+```
+
+Para subir o servidor em node.js no modo debug
 
 ## ⚙️ Executando os testes
 
@@ -34,9 +36,11 @@ A versão atual do projeto ainda nao conta com testes de unidade
 
 ## 🛠️ Construído com
 
-- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
-- [Maven](https://maven.apache.org/) - Gerente de Dependência
-- [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
+- [Vue.js]
+- [Express]
+- [Socket.io]
+- [Node.js]
+- [Webrtc]
 
 ## 🖇️ Colaborando
 
@@ -71,5 +75,3 @@ Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](h
 - etc.
 
 --- -->
-
-⌨️ com ❤️ por [Gabriel Diniz](https://gist.github.com/gmdiniz) 😊
