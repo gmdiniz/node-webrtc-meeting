@@ -1,6 +1,8 @@
-const app = require('express')()
+const express = require('express')
+const app = express()
 const http = require('http').Server(app)
 const port = process.env.PORT || 3000
+const router = express.Router()
 
 const io = require('socket.io')(http, {
     cors: {
@@ -10,14 +12,16 @@ const io = require('socket.io')(http, {
     pingInterval: 3000
 })
 
+
 http.listen(port, () => {
     console.log(`Server is up`)
 })
 
-const index = require('./src/services/routes/index')
-const usersRoute = require('./src/services/routes/usersRoute')
-const meetingsRoute = require('./src/services/routes/meetRoute')
+const index = require('../src/services/routes/index')
+const usersRoute = require('../src/services/routes/usersRoute')
+const meetingsRoute = require('../src/services/routes/meetRoute')
 
+app.use('/.netlify/functions/server', router)
 app.use('/', index)
 app.get('/users', usersRoute)
 app.get('/meetings', meetingsRoute)
