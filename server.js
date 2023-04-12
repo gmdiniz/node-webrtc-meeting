@@ -11,7 +11,7 @@ const io = require('socket.io')(http, {
 })
 
 http.listen(port, () => {
-    console.log(`Socket.IO server running at http://localhost:${port}/`)
+    console.log(`Server is up`)
 })
 
 const index = require('./src/services/routes/index')
