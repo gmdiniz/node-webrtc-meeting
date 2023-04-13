@@ -10,7 +10,7 @@ const io = require('socket.io')(http, {
     pingInterval: 3000
 })
 
-http.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is up`)
 })
 
