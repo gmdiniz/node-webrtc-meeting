@@ -25,7 +25,7 @@ Para subir o fronend em VUE
 e
 
 ```
-npm run server -
+npm run server
 ```
 
 Para subir o servidor em node.js no modo debug
