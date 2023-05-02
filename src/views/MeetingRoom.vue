@@ -266,7 +266,7 @@ export default {
     },
     mounted () {
         const randomNickname = faker.lorem.slug(2)
-        this.nickname = randomNickname
+        this.nickname = localStorage.username ? localStorage.username : randomNickname
     }
 }
 </script>

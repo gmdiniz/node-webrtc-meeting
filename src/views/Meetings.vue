@@ -17,13 +17,23 @@
                     </div>
                 </div>
                 <div>
-                    <v-text-field
-                        v-model='routRoomId'
-                        label='Insira a chave de uma nova reunião'
-                        required
-                        clearable
-                        id='username-input'
-                    />
+                    <div class="room-input-form">
+                        <input
+                            v-model='routRoomId'
+                            placeholder='Insira o id de uma nova reunião'
+                            required
+                            type="text"
+                            class="roomid-input"
+                            id='roomid-input'
+                        />
+                        <input
+                            v-model='username'
+                            type="text"
+                            placeholder='Insira um nome ou apelido'
+                            class="username-input"
+                            id='username-input'
+                        />
+                    </div>
                     <div class="d-flex">
                         <v-btn color="success" v-on:click='startCall()'> Criar uma chamada </v-btn>
                         <v-spacer></v-spacer>
@@ -48,6 +58,7 @@ export default {
         return {
             meetingsList: [],
             localStream: null,
+            username: '',
             peerConn: null,
             routRoomId: '',
             startCall () {
@@ -88,7 +99,17 @@ export default {
             }
         }
     },
+    watch: {
+        username (newUsername) {
+            localStorage.username = newUsername
+        }
+    },
     computed: mapState(['APIData']),
+    mounted: function () {
+        if (localStorage.username) {
+            this.username = localStorage.username
+        }
+    },
     created: function () {
         this.startMedia()
     }
@@ -96,6 +117,17 @@ export default {
 </script>
 
 <style scoped>
+
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: flex;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
     .meetings {
         height: 100%;
         background-color: #E5ECE9;
@@ -103,6 +135,22 @@ export default {
 
     .camera-preview-actions {
         width: 100%;
+    }
+
+    .room-input-form {
+        display: flex;
+        justify-content: space-between;
+        margin: 18px 0;
+    }
+
+    .roomid-input {
+        font-size: 14px;
+        margin-right: 12px;
+    }
+
+    .username-input {
+        font-size: 14px;
+        margin-left: 12px;
     }
 
     .icon {
